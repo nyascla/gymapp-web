@@ -1,0 +1,10 @@
+.lyBody {
+    display: flex;
+    flex: 1;
+
+    flex-direction: column;
+    justify-content: space-around;
+    
+    border: 3px solid #fc0202;
+}
+
