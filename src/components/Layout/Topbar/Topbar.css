@@ -1,12 +1,15 @@
 .lyTop {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;  
 
-    position: relative;
-    top: 0;
-    right: 0;
-    left: 0;
+
     height: 150px;
-    border: 3px solid #212aad;
+    
+    background-color: #CDD3CE;
+    border: 3px solid #B118C8;
+    border-radius: 25px;
+    /* top: 0;
+    right: 0;
+    left: 0; */
 }

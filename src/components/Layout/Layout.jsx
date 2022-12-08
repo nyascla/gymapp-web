@@ -11,6 +11,7 @@ import { Sidebar } from './Sidebar/Sidebar'
 export const Layout = () => {
     const [isOpen, setIsOpen] = useState(false)  
     const [page, setPage] = useState("Gym") // Peticion para poner ahi el valor del ultimo estado
+    const [pageType, setPageType] = useState("0")
 
     return (
         <div className="ly">
@@ -18,11 +19,13 @@ export const Layout = () => {
                     page={page} setPage={setPage}
             />
             
-            <Body page={page}   
+            <Body page={page}
+                pageType={pageType}   
             />
             
             <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}
-                     page={page} setPage={setPage}
+                    page={page} setPage={setPage}
+                    pageType={pageType} setPageType={setPageType}
             />
             
         </div>

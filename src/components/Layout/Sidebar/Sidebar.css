@@ -12,8 +12,8 @@
     min-width: 250px;
     max-width: 250px;
     
-    background: #ffffff;
-    border: 3px solid #02fc02;
+    background: #BBB5BD;
+    /* border: 3px solid #02fc02; */
     margin-left: -250px;
     transition: all 0.5s;
   }
@@ -24,7 +24,7 @@
   
   
   .sidebar-header {
-    background: #c2c0c0;
+    background: #AA6DA3;
     color: #adb5bd;
     cursor: pointer;
     transition: 0.25s;
