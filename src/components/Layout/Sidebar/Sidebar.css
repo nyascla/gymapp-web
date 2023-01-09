@@ -12,7 +12,7 @@
     min-width: 250px;
     max-width: 250px;
     
-    background: #BBB5BD;
+    background: #cfcfcf;
     /* border: 3px solid #02fc02; */
     margin-left: -250px;
     transition: all 0.5s;
@@ -24,8 +24,7 @@
   
   
   .sidebar-header {
-    background: #AA6DA3;
-    color: #adb5bd;
+    background: #b9b9b9;
     cursor: pointer;
     transition: 0.25s;
   }
@@ -35,7 +34,7 @@
   }
   
   .sidebar-header h3{
-    color: #fff;
+    color: rgb(253, 253, 253);
     padding: 1em;
   }
   
@@ -56,18 +55,10 @@
   /* ---------------------------------------------------
       CONTENT STYLE
   ----------------------------------------------------- */
-  .content {
-    padding: 20px;
-    margin-left: 0;
-    height: 100vh;
+  .element:hover {
+    background: #8a8a8a;
   }
-  .no-lugares {
-    margin: .5em;
-    margin-top: 0;
-    color: #fff;
-    font-style: oblique;
-    font-size: 90%;
-  }
+  
   
   @media only screen and (max-width: 575.98px) {
     body {

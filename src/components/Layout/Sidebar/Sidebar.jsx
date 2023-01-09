@@ -1,19 +1,14 @@
-import React from "react";
-
 import './Sidebar.css'
 
-const list = 
-{
- "Gym":"",
- "Food":"",
- "Weight":"",
-}
+import React, {useContext} from "react";
+import Enumerations from '../../../utils/Enumerations';
+
+import { AppContext } from '../../../App'; 
+
 export const Sidebar = (props) => {
-    const {isOpen, setIsOpen} = props
-    const {page, setPage} = props
+    const {isOpen, setIsOpen, page, setPage} = useContext(AppContext);
 
     async function onClickListElement(e, key){
-        e.preventDefault()
         setPage(key)
         setIsOpen(false)
     }
@@ -21,15 +16,15 @@ export const Sidebar = (props) => {
     return (
         <div className={`sidebar + ${isOpen ? "is-open": ""}`}>
             <div className="sidebar-header">
-                <h3 onClick={() => setIsOpen(!isOpen)}> {page} </h3>           
+                <h1 onClick={() => setIsOpen(!isOpen)}> {page} </h1>           
             </div>  
             
-            <div>
-            {Object.keys(list).map( key => (
-                <div
-                onClick={(e) => onClickListElement(e, key)}
-                key={key}>
-                <h2><strong className="">{key}</strong></h2>   
+            <div className='content'>
+            {Object.keys(Enumerations.pages).map(key => (
+                <div className='element'
+                    onClick={(e) => onClickListElement(e, key)}
+                    key={key}>
+                    <h3>{Enumerations.pages[key]}</h3>   
                 </div>
             ))}                         
             </div>    

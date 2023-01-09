@@ -1,4 +1,6 @@
-import React,{useEffect} from "react";
+import './Gym.css'
+
+import React,{useState,useEffect, useContext} from "react";
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,90 +8,112 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import './Gym.css'
+import Button from '@mui/material/Button';
+import { AppContext } from '../../../../App';
+import Client from "../../../../utils/Client";
+
+const GymContext = React.createContext();
 
 export const Gym = (props) => {
-  const [ejercicio, setEjercicio] = React.useState('');
-  const [values, setValues] = React.useState({
-    peso: '',
-    repeticiones: '',
-    rir: ''
-  });
+  const {pageType} = useContext(AppContext);
 
-  const onClick = () => {
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: "POST",
-      body: JSON.stringify(_datos),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
-    })
-    .then(response => response.json()) 
-    .then(json => console.log(json));
+  const [patterns, setPatterns] = React.useState([]);
+  const [pattern, setPattern] = React.useState('');
+  const [exercises, setExercises] = React.useState([]);
+  const [exercise, setExercise] = React.useState('');
 
+  useEffect(() => {
+      Client.exercises.getPatterns().then(setPatterns);
+  }, []);
+
+  useEffect(() => {
+    if (pattern) {
+      Client.exercises.getExercises(pattern.nombre).then(setExercises);
+    }
+  }, [pattern]);
+
+  const context = {
+    patterns: patterns,
+    pattern: pattern,
+    setPattern: setPattern,
+    exercises: exercises,
+    exercise: exercise,
+    setExercise: setExercise    
   }
   
-
   return (
     <div className="mainGym">
-      <h2> Ejercicio </h2>
-      <ExerciceSelector ejercicio={ejercicio} setEjercicio={setEjercicio}/>
-      <h2> Datos <button>E</button></h2>
-      <FormPropsTextFields values={values} setValues={setValues}/>
+      <GymContext.Provider value={context} >
+        {pageType == 0 ? <TodayGym />:<HistoricGym/>}
+      </GymContext.Provider>
     </div>
   );
 
 }
 const TodayGym = (props) => {
-  return (
+  const {exercise} = useContext(GymContext);
 
+  const [values, setValues] = useState({peso: '-1',repeticiones: '-1',rir: '-1'});
+  const [disable, setDisable] = useState(true)
+  
+  useEffect(() => {
+    setDisable( !exercise || Object.values(values).some(v => v < 0 || !v))
+  }, [values, exercise]);
+
+  const handleSendSet = () => {
+    Client.sessions.addSet(exercise.nombre, values)
+  }
+  
+  return (
     <div className="mainGym">
       <ExerciceSelector/>
       
+      <FormPropsTextFields values={values} setValues={setValues}/>  
+
+      <Button 
+        onClick={() => handleSendSet()}
+        disabled={disable}
+        color="inherit" >Enviar</Button>;    
     </div>
   );
 
 }
 
 const HistoricGym = (props) => {
+  const {exercise} = useContext(GymContext);
+  const [exercisesHistoric, setExercisesHistoric] = useState([])
+  
+  useEffect(() => {
+    if (exercise.nombre)
+      Client.sessions.getAllSessions(exercise.nombre).then(setExercisesHistoric)
+  
+  }, [exercise]);
+  
   return (
-
     <div className="mainGym">
       <ExerciceSelector/>
-
+      <div>
+      {
+        exercisesHistoric.map((elem, index) => (
+          <div key={index}>{elem.EJERCICIO_S_fecha}{elem.EJERCICIO_S_nombre}</div>)    
+        )
+      }
+      </div>
     </div>
   );
 
 }
 
-
 const ExerciceSelector = (props) => {
-  const {ejercicio, setEjercicio}=props
-  const [patron, setPatron] = React.useState('');
-  const [patrons, setPatrons] = React.useState([]);
-  const [ejercicios, setEjercicios] = React.useState([]);
-
-  useEffect(() => {
-    fetch("api/ejercicios/patrones/")
-      .then((response) => response.json())
-      .then((x) => setPatrons(x));
-  }, []);
-
-  useEffect(() => {
-    if (!patron)
-      fetch("api/ejercicios/")
-        .then((response) => response.json())
-        .then((x) => setEjercicios(x));
-    else
-      fetch(`api/ejercicios/${patron.nombre}`)
-        .then((response) => response.json())
-        .then((x) => setEjercicios(x));
-  }, [patron]);
-
-  const handlePatron = (event) => {
-    setPatron(event.target.value);
+  const {pattern, patterns, setPattern,
+        exercise, exercises, setExercise} = useContext(GymContext);
+  
+  const handlePattern = (event) => {
+    setPattern(event.target.value);
   };
 
-  const handleEjercicio = (event) => {
-    setEjercicio(event.target.value);
+  const handleExercise = (event) => {
+    setExercise(event.target.value);
   };
 
   return (
@@ -99,14 +123,14 @@ const ExerciceSelector = (props) => {
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={patron}
+          value={pattern}
           label="Age"
-          onChange={handlePatron}
+          onChange={handlePattern}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {patrons.map((i,j) => <MenuItem value={i} key={j}>{i.nombre}</MenuItem>)}
+          {patterns.map((i,j) => <MenuItem value={i} key={j}>{i.nombre}</MenuItem>)}
         </Select>
       </FormControl>
       
@@ -115,13 +139,13 @@ const ExerciceSelector = (props) => {
         <Select
           labelId="demo-simple-select-helper-label"
           id="demo-simple-select-helper"
-          value={ejercicio}
-          onChange={handleEjercicio}
+          value={exercise}
+          onChange={handleExercise}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {ejercicios.map((i,j) => <MenuItem value={i} key={j}>{i.nombre}</MenuItem>)}
+          {exercises.map((i,j) => <MenuItem value={i} key={j}>{i.nombre}</MenuItem>)}
         </Select>
       </FormControl>
     </div>
@@ -152,6 +176,8 @@ const FormPropsTextFields = (props) => {
           type="number"
           onChange={(e) => handleChange(e, 'peso')}
         />
+      </div>
+      <div>
         <TextField
           required
           id="outlined-required"
@@ -159,6 +185,8 @@ const FormPropsTextFields = (props) => {
           type="number"
           onChange={(e) => handleChange(e, 'repeticiones')}
         />
+      </div>
+      <div>
         <TextField
           required
           id="outlined-required"
@@ -170,8 +198,3 @@ const FormPropsTextFields = (props) => {
     </Box>
   );
 }
-
-
-
-
-

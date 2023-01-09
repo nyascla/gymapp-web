@@ -32,8 +32,9 @@ export const Body = (props) => {
   }, [page]); // Only re-run the effect if count changes
   
   return (
-    <div className="lyBody">     
-      {renderPage}
+    <div className="lyBody"> 
+      <Gym pageType={pageType}/>    
+      {/* {renderPage} */}
     </div>
   )
 }
