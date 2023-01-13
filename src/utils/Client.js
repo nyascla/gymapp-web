@@ -65,6 +65,18 @@ class Sessions extends BaseClient {
     getAllSessions(exercise) {
         return this._setupRequest(METHOD.GET, [':exercise'], {exercise});    
     }
+
+    getAllSetsFromSession(exercise, session) {
+        return this._setupRequest(METHOD.GET, [':exercise', ':session'], {exercise, session});    
+    }
+
+    getChartLabels(exercise){
+        return this._setupRequest(METHOD.GET, ['chartLabels',':exercise'], {exercise});    
+    }
+
+    getChartData(exercise){
+        return this._setupRequest(METHOD.GET, ['chartData', ':exercise'], {exercise});    
+    }
 }
 
 export default {
