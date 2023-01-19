@@ -9,6 +9,7 @@ import { GymChart } from './components/GymChart';
 import { GymHistoric } from './components/GymHistoric';
 import { GymeSelector } from './components/GymSelector';
 import { GymSessionForm } from './components/GymSessionForm';
+
 export const GymContext = React.createContext();
 
 export const Gym = (props) => {
@@ -24,7 +25,7 @@ export const Gym = (props) => {
 
   useEffect(() => {
     if (pattern) {
-      Client.exercises.getExercises(pattern.nombre).then(setExercises);
+      Client.exercises.getExercises(pattern).then(setExercises);
     }
   }, [pattern]);
 
@@ -40,6 +41,7 @@ export const Gym = (props) => {
   return (
     <div className="mainGym">
       <GymContext.Provider value={context} >
+       
         <GymeSelector/>
 
         {pageType == 0 ? <TodayGym />:<HistoricGym/>}

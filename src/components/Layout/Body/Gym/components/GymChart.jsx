@@ -35,51 +35,44 @@ export const options = {
   },
 };
 
+const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+
+
 export const GymChart = (props) => {
   const {exercise} = useContext(GymContext)
   const [chartData, setChartData] = useState([])
-  const [chartLabels, setChartLabels] = useState([])
-
+  const [values, setValues] = useState([])
+  const [labels, setLabels] = useState([])
+  
   useEffect(() => {
-    if (exercise.nombre) {
-      // Client.sessions.getChartData(exercise.nombre).then(setChartData)
-      Client.sessions.getChartLabels(exercise.nombre).then(setChartLabels)
+    if (exercise) {
+      Client.sessions.getAllSessions(exercise).then(setChartData)
     }    
   }, [exercise]);
 
+  useEffect(() => {
+    setValues(chartData.map(e => e.sets_value))
+    setLabels(chartData.map(e => e.session_date))
+  }, [chartData]);
+
   const data = {
-    chartLabels,
-    datasets: chartData
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: labels.map(() => values),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ]
   };
 
   return (
+    
       <div className='gym-chart'>
-        {console.log(chartLabels)}
           <Line options={options} data={data} />;
       </div>
   )
 }
 
-// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-// [
-//   {
-//     label: 'Dataset 1',
-//     data: labels.map(() => [1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000]),
-//     borderColor: 'rgb(255, 99, 132)',
-//     backgroundColor: 'rgba(255, 99, 132, 0.5)',
-//   },
-//   {
-//     label: 'Dataset 2',
-//     data: labels.map(() => [500,500,500,500,500,500,500,50,50,50,50,50]),
-//     borderColor: 'rgb(53, 162, 235)',
-//     backgroundColor: 'rgba(53, 162, 235, 0.5)',
-
-//   },
-//   {
-//       label: 'Dataset 3',
-//       data: labels.map(() => [4,4,4,4,4,4,4,4,4,4,4]),
-//       borderColor: 'rgb(6, 6, 6)',
-//       backgroundColor: 'rgba(6, 6, 6, 6.5)',
-//   },
-// ],

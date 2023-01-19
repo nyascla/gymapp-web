@@ -14,15 +14,15 @@ import Client from "../../../../../utils/Client";
 export const GymHistoric = (props) => {
     const {exercise} = useContext(GymContext);
     const [open, setOpen] = useState([]);
-    const [exercisesHistoric, setExercisesHistoric] = useState([])
+    const [sessionsHistoric, setSessionsHistoric] = useState([])
     
     useEffect(() => {
-      setOpen(Array.from({length: exercisesHistoric.length}, () => false))
+      setOpen(Array.from({length: sessionsHistoric.length}, () => false))
     }, [exercise]);
 
     useEffect(() => {
-      if (exercise.nombre) {
-        Client.sessions.getAllSessions(exercise.nombre).then(setExercisesHistoric)
+      if (exercise) {
+        Client.sessions.getAllSessions(exercise).then(setSessionsHistoric)
       }    
     }, [exercise]);
 
@@ -39,24 +39,24 @@ export const GymHistoric = (props) => {
         sx={{ width: '100%', bgcolor: 'background.paper' }}
         component="nav"
         aria-labelledby="nested-list-subheader"
-      >     
-        {exercisesHistoric.map((elem, index) => (
-          <div key = {index}>
+      > 
+  
+        {sessionsHistoric.map((session, index) => (
+          <div key = {'session'+index}>
             <ListItemButton  onClick={() => handleClick(index)}>
-              <ListItemText primary={elem.sessionDate}/>
+              <ListItemText primary={session.session_date}/>
               {open[index] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             
             <Collapse className='hisotric-expand'in={open[index]} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-            {exercisesHistoric[index].sets.map((elem, index) => (
-                <ListItemButton key={index*-1} sx={{ pl: 4 }}>
-                  <ListItemText primary={`${elem.numero} | P - ${elem.peso} | R - ${elem.repeticiones} | rir - ${elem.rir} |`}/>
-                </ListItemButton>
-              ))}
-            </List>
+              <List component="div" disablePadding>
+              {session.sets.map((set, index) => (
+                  <ListItemButton key={'set'+index} sx={{ pl: 4 }}>
+                    <ListItemText primary={`${set.set_number} | P - ${set.set_weight} | R - ${set.set_repetitions} | rir - ${set.set_rir} |`}/>
+                  </ListItemButton>
+                ))}
+              </List>
             </Collapse>
-
           </div>
         ))}
       </List>

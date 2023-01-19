@@ -31,7 +31,7 @@ export const GymeSelector = (props) => {
             label="Age"
             onChange={handlePattern}
           >
-            {patterns.map((i,j) => <MenuItem value={i} key={j}>{i.nombre}</MenuItem>)}
+            {patterns.map((object,index) => <MenuItem value={object.pattern_name} key={index}>{object.pattern_name}</MenuItem>)}
           </Select>
         </FormControl>
         
@@ -44,7 +44,7 @@ export const GymeSelector = (props) => {
             onChange={handleExercise}
           >
             <MenuItem value=""><em>None</em></MenuItem>           
-            {exercises.map((i,j) => <MenuItem value={i} key={j}>{i.nombre}</MenuItem>)}
+            {exercises.map((object,index) => <MenuItem value={object.exercise_name} key={index}>{object.exercise_name}</MenuItem>)}
           </Select>
         </FormControl>
       </div>

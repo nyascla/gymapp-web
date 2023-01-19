@@ -12,3 +12,22 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </StyledEngineProvider>
   </React.StrictMode>
 )
+
+
+// 
+// Instalar dependencias
+// 
+// npm install
+//  
+
+// 
+// Levantar servidor
+// 
+// npm run dev
+// 
+
+// 
+// Compilar
+// 
+// run build
+// 

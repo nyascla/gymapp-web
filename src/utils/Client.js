@@ -71,11 +71,11 @@ class Sessions extends BaseClient {
     }
 
     getChartLabels(exercise){
-        return this._setupRequest(METHOD.GET, ['chartLabels',':exercise'], {exercise});    
+        return this._setupRequest(METHOD.GET, ['chart,Labels',':exercise'], {exercise});    
     }
 
     getChartData(exercise){
-        return this._setupRequest(METHOD.GET, ['chartData', ':exercise'], {exercise});    
+        return this._setupRequest(METHOD.GET, ['chart,Data', ':exercise'], {exercise});    
     }
 }
 

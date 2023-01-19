@@ -9,14 +9,14 @@ import Client from "../../../../../utils/Client";
 export const GymSessionForm = (props) => {
     const {exercise} = useContext(GymContext);
     const [disable, setDisable] = useState(true)
-    const [values, setValues] = useState({peso: '-1',repeticiones: '-1',rir: '-1'});
+    const [values, setValues] = useState({weight: '-1', repetitions: '-1', rir: '-1'});
 
     useEffect(() => {
         setDisable( !exercise || Object.values(values).some(v => v < 0 || !v))
     }, [values, exercise]);
 
     const handleSendSet = () => {
-        Client.sessions.addSet(exercise.nombre, values).then(alert('OK'))
+        Client.sessions.addSet(exercise, values).then(alert('OK'))
     }
 
     const handleChange = (event, prop) => {
@@ -39,7 +39,7 @@ export const GymSessionForm = (props) => {
                 id="outlined-required"
                 label="peso"
                 type="number"
-                onChange={(e) => handleChange(e, 'peso')}
+                onChange={(e) => handleChange(e, 'weight')}
                 />
             </div>
             <div>
@@ -48,7 +48,7 @@ export const GymSessionForm = (props) => {
                 id="outlined-required"
                 label="repeticiones"
                 type="number"
-                onChange={(e) => handleChange(e, 'repeticiones')}
+                onChange={(e) => handleChange(e, 'repetitions')}
                 />
             </div>
             <div>
