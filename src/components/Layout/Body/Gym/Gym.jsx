@@ -44,7 +44,7 @@ export const Gym = (props) => {
        
         <GymeSelector/>
 
-        {pageType == 0 ? <TodayGym />:<HistoricGym/>}
+        {pageType == 0 ? <GymSessionForm/> : <GymHistoric/>}
 
       </GymContext.Provider>
     </div>
@@ -54,7 +54,7 @@ export const Gym = (props) => {
 const TodayGym = (props) => {  
   return (
     <div className="mainGym">   
-      <GymSessionForm/>  
+       
     </div>
   );
 }
@@ -62,8 +62,8 @@ const TodayGym = (props) => {
 const HistoricGym = (props) => {
   return (
     <div className="mainGym">
-      <GymChart/>
-      <GymHistoric/>
+      
+      
     </div>
   );
 }

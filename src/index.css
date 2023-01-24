@@ -1,15 +1,14 @@
 html {
-    height: 100%;
-    margin: 0px;
-    
     font-family: "roboto light"
 }
 
-body {
-    height: 100%;
-    margin: 0px;
+@media only screen and (min-width: 400px) {
+   body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+   }
 }
 
-#root{
-    height: 100%;
-}

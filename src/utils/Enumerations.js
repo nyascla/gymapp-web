@@ -8,7 +8,15 @@ const PAGESTYPES = {
     HISTORIC: "Historic"   
 }
 
+const COLORS = {
+    PUSH: '#acffe5',    // Azul
+    PULL: '#deef9b',    // Crema
+    TORSO: '#ffb96f',   // Naranja
+    LEG: '#b2ca4c',     // Morado
+}
+
 export default {
     pages: PAGES,
-    pagesTypes: PAGESTYPES
+    pagesTypes: PAGESTYPES,
+    colors: COLORS
 }

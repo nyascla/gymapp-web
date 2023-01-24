@@ -3,6 +3,9 @@ import Button from '@mui/material/Button';
 
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 import { GymContext } from "../Gym";
 import Client from "../../../../../utils/Client";
 
@@ -58,6 +61,12 @@ export const GymSessionForm = (props) => {
                 label="rir"
                 type="number"
                 onChange={(e) => handleChange(e, 'rir')}
+                />
+            </div>
+            <div>
+                <FormControlLabel 
+                    control={<Checkbox defaultChecked />} 
+                    label="Top Set" 
                 />
             </div>
             </Box>
