@@ -9,8 +9,9 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { GymContext } from "../Gym";
-import SessionTable from './GymTable';
-
+import SessionTable,{ ExerciseTable } from './GymTable';
+import { GymChart } from './GymChart';
+import  './GymTable';
 import Client from "../../../../../utils/Client";
 
 export const GymHistoric = (props) => {

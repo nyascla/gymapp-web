@@ -58,8 +58,16 @@ class Sessions extends BaseClient {
         return this._setupRequest(METHOD.GET);
     }
 
-    addSet(exercise, set) {
-        return this._setupRequestWithJSON(METHOD.POST, [':exercise'], {exercise}, set);    
+    getSessionsHistoric() {
+        return this._setupRequest(METHOD.GET, ['all']);    
+    }
+
+    getAllExercisesFromSession(session) {
+        return this._setupRequest(METHOD.GET, ['all','exercises', ':session'], {session});    
+    }
+
+    getAllSetsFromExercise(session, exercise) {
+        return this._setupRequest(METHOD.GET, ['all','sets', ':session', ':exercise'], {session, exercise});    
     }
 
     getAllSessions(exercise) {
@@ -70,12 +78,12 @@ class Sessions extends BaseClient {
         return this._setupRequest(METHOD.GET, [':exercise', ':session'], {exercise, session});    
     }
 
-    getChartLabels(exercise){
-        return this._setupRequest(METHOD.GET, ['chart,Labels',':exercise'], {exercise});    
-    }
-
     getChartData(exercise){
         return this._setupRequest(METHOD.GET, ['chart,Data', ':exercise'], {exercise});    
+    }
+
+    addSet(exercise, set) {
+        return this._setupRequestWithJSON(METHOD.POST, [':exercise'], {exercise}, set);    
     }
 }
 

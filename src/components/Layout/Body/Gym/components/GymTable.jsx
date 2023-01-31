@@ -1,5 +1,4 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
+import React,{useState,useEffect, useContext} from 'react';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
@@ -8,40 +7,30 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Enumerations from '../../../../../utils/Enumerations';
 
-
-const sessions = [
-    {name:1},{name:2}
-];
-
-const exercises = [
-    {name:3},{name:4}
-];
+import Client from '../../../../../utils/Client';
 
 const sets = [
     {name:5},{name:6}
 ];
 
 export default function SessionTable() {
+  const [sessions, setSessions] = useState([])
+
+  useEffect(() => {
+      Client.sessions.getSessionsHistoric().then(setSessions)  
+  }, []);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Date</TableCell>
-            <TableCell align="right">Pattern</TableCell>
-            <TableCell align="right">volume</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           {sessions.map((session) => (
-            <SessionRow key={session.name} session={session} />
+            <SessionRow key={session.session_date} session={session} />
           ))}
         </TableBody>
       </Table>
@@ -55,7 +44,8 @@ function SessionRow(props) {
   
     return (
       <React.Fragment>
-        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}  >
+        {/* style={{backgroundColor: Enumerations.colors.LEG}} */}
+        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
           <TableCell>
             <IconButton
               aria-label="expand row"
@@ -65,16 +55,14 @@ function SessionRow(props) {
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell component="th" scope="row" style={{backgroundColor: Enumerations.colors.LEG}}>
-            {session.name}
+          <TableCell component="th" scope="row">
+            {session.session_date}
           </TableCell>
-          <TableCell align="right">g</TableCell>
-          <TableCell align="right">g</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
               <Collapse in={open} timeout="auto" unmountOnExit>
-                  <ExerciseTable />  
+                  <ExerciseTable session={session}/>  
               </Collapse>
           </TableCell>
         </TableRow>
@@ -82,21 +70,20 @@ function SessionRow(props) {
     );
   }
 
-export function ExerciseTable() {
+export function ExerciseTable(props) {
+  const {session} = props
+  const [exercises, setExercises] = useState([])
+
+  useEffect(() => {
+      Client.sessions.getAllExercisesFromSession(session.session_date).then(setExercises)  
+  }, [session]);
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Date</TableCell>
-            <TableCell align="right">Pattern</TableCell>
-            <TableCell align="right">volume</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
-          {exercises.map((exercise) => (
-            <ExerciseRow key={exercise.name} row={exercise} />
+          {exercises.map((exercise, index) => (
+            <ExerciseRow key={index} exercise={exercise} session={session}/>
           ))}
         </TableBody>
       </Table>
@@ -105,7 +92,7 @@ export function ExerciseTable() {
 }
 
 function ExerciseRow(props) {
-    const {exercise} = props  
+    const {exercise, session} = props  
     const [open, setOpen] = React.useState(false);
   
     return (
@@ -120,16 +107,14 @@ function ExerciseRow(props) {
               {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </IconButton>
           </TableCell>
-          <TableCell component="th" scope="row" style={{backgroundColor: Enumerations.colors.LEG}}>
-            {exercise.name}
+          <TableCell component="th" scope="row">
+            {exercise.FK_session_exercise}
           </TableCell>
-          <TableCell align="right">vv</TableCell>
-          <TableCell align="right">vv</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
               <Collapse in={open} timeout="auto" unmountOnExit>
-                  <SetTable />  
+                  <SetTable session={session} exercise={exercise}/>  
               </Collapse>
           </TableCell>
         </TableRow>
@@ -137,21 +122,28 @@ function ExerciseRow(props) {
     );
   }
 
-  export function SetTable() {
+  export function SetTable(props) {
+    const {exercise, session} = props  
+    const [sets, setSets] = useState([])
+
+    useEffect(() => {
+        Client.sessions.getAllSetsFromSession(exercise.FK_session_exercise, session.session_date).then(setSets)  
+    }, [exercise]);
+
     return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell>Date</TableCell>
-              <TableCell align="right">Pattern</TableCell>
-              <TableCell align="right">volume</TableCell>
+              
+              <TableCell>Weight</TableCell>
+              <TableCell align="right">Rep.</TableCell>
+              <TableCell align="right">rir</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {sets.map((set) => (
-              <SetRow key={set.name} set={set} />
+              <SetRow key={set.set_weight} set={set} />
             ))}
           </TableBody>
         </Table>
@@ -164,11 +156,54 @@ function ExerciseRow(props) {
       return (
         <React.Fragment>
           <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}  >
-            <TableCell component="th" scope="row" style={{backgroundColor: Enumerations.colors.LEG}}>
-              {set.name}
-            </TableCell>
-            <TableCell align="right">cc</TableCell>
-            <TableCell align="right">cc</TableCell>
+            <TableCell> {set.set_weight} </TableCell>
+            <TableCell align="right">{set.set_repetitions}</TableCell>
+            <TableCell align="right">{set.set_rir}</TableCell>
+          </TableRow>
+        </React.Fragment>
+      );
+    }
+
+
+  export function GenericTable(props) {
+    const {exercise} = props  
+    const [exercises, setExercises] = useState([])
+
+    useEffect(() => {
+      if (exercise) {
+        Client.sessions.getAllSessions(exercise).then(setSessionsHistoric)
+      }    
+    }, [exercise]);
+
+    return (
+      <TableContainer component={Paper}>
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              
+              <TableCell>Weight</TableCell>
+              <TableCell align="right">Rep.</TableCell>
+              <TableCell align="right">rir</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {sets.map((exercises, index) => (
+              <SetRow key={index} exercise={exercise} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    );
+  }
+  
+  function GenericRow(props) {  
+    const {set} = props   
+      return (
+        <React.Fragment>
+          <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}  >
+            <TableCell> {set.set_weight} </TableCell>
+            <TableCell align="right">{set.set_repetitions}</TableCell>
+            <TableCell align="right">{set.set_rir}</TableCell>
           </TableRow>
         </React.Fragment>
       );

@@ -33,9 +33,7 @@ export default function Top() {
             >
                 <MenuIcon/>
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                {page}
-            </Typography>
+            
             <Button color={pageType == 0 ?'inherit':'info'} onClick={() => setPageType("0")}>
                 {Enumerations.pagesTypes.TODAY}
             </Button>
