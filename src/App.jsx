@@ -2,7 +2,7 @@ import './App.css'
 
 import React, {useState} from 'react';
 import { Layout } from "./components/Layout/Layout"
-
+import { LogIn } from './components/LogIn/LogIn';
 export const AppContext = React.createContext();
 
 function App() {
@@ -24,7 +24,9 @@ function App() {
   
   return (
     <AppContext.Provider value={value}>
-      <Layout/>
+      
+      <LogIn/>
+      {/* <Layout/> */}
     </AppContext.Provider>
   )
 }
