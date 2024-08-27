@@ -1,8 +1,8 @@
 import React from 'react';
-import './serie.css'
+import './modals.css'
 
 
-function Serie({ isOpen, onClose }) {
+function ExerciseNewSerie({ isOpen, onClose }) {
     if (!isOpen) return null;
 
     const handleOutsideClick = (e) => {
@@ -24,4 +24,4 @@ function Serie({ isOpen, onClose }) {
   }
   
 
-export default Serie;
+export default ExerciseNewSerie;

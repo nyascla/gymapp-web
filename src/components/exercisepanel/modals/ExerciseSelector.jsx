@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './ejerciciomodal.css'
+import './modals.css'
 
 
-function EjercicioModal({ isOpen, onClose, setEjercicio }) {
+function ExerciseSelector({ isOpen, onClose, setEjercicio }) {
   const [data, setData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -66,4 +66,4 @@ function EjercicioModal({ isOpen, onClose, setEjercicio }) {
 }
 
 
-export default EjercicioModal;
+export default ExerciseSelector;

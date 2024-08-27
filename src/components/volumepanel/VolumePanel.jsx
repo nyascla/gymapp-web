@@ -1,5 +1,5 @@
 import React from 'react';
-import './volumen.css'
+import './volumepanel.css'
 
 
 function Volumen() {

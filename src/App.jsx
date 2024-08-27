@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import Entreno from '../src/components/entreno/Entreno'
-import Volumen from '../src/components/volumen/Volumen'
+import React from 'react';
 
-import EjercicioSelect from './components/EjercicioSelect/EjercicioSelect'
-
-
+import VolumePanel from '../src/components/volumepanel/VolumePanel'
+import ExercisePanel from './components/exercisepanel/ExercisePanel'
 
 import './App.css'
 
+
 function App() {
-
-
 
   return (
     <div className='app'>
-      {/* <Entreno/> */}
-      <Volumen/>
-
-
-      <EjercicioSelect/>
-
-      
-      <Entreno/>
-
+      <VolumePanel />
+      <ExercisePanel />
     </div>
   );
 }

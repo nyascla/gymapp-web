@@ -1,0 +1,35 @@
+.exercise-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+
+    width: calc(100% - 20px); /* Deja 10px de margen a cada lado */
+    background-color: #00ffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    padding: 20px  0 ;
+}
+
+
+.buttons-panel {
+    display: flex;
+    gap: 20px;
+}
+    
+
+
+.selection-panel {
+    background-color: #ffffff; /* Fondo blanco para un aspecto limpio */
+    border: 2px solid #4CAF50; /* Borde verde para un toque de color */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    max-width: 400px; /* Ancho máximo */
+    margin: 20px auto; /* Margen vertical automático para centrar y margen horizontal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para profundidad */
+    font-family: 'Arial', sans-serif; /* Fuente moderna y legible */
+    font-size: 18px; /* Tamaño de fuente para mayor legibilidad */
+    color: #333333; /* Color de texto oscuro para buen contraste */
+    text-align: center; /* Alinea el texto al centro */
+    line-height: 1.5; /* Espaciado entre líneas */
+}
