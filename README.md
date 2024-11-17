@@ -14,3 +14,15 @@ Este es el cliente de la aplicación de seguimiento de entrenamientos, desarroll
 
 - Node.js
 - npm (administrador de paquetes de Node.js)
+
+
+#### 1. Instalar dependencias
+```
+npm install
+```
+
+#### 2. Ejecutar
+
+```
+npm run dev
+```
