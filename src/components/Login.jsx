@@ -16,11 +16,13 @@ const Login = ({ setToken }) => {
       throw new Error('Username and password are required');
     }
 
-    const data = await getToken(username, password)
+      const data = await getToken(username, password)
 
-    if (data && data.access_token) {
-      setToken(data.access_token);
-    }
+      if (data && data.access_token) {
+        setToken(data.access_token);
+      } else {
+        alert("Error")
+      } 
   };
 
   const handleRegister = async (e) => {
@@ -30,7 +32,14 @@ const Login = ({ setToken }) => {
       throw new Error('Username and password are required');
     }
 
+
     const data = await registerUser(username, password)
+
+    if (data && data.access_token) {
+      setToken(data.access_token);
+    } else {
+      alert("Error")
+    } 
   };
   
 

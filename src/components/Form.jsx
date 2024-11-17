@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
+
+import { useAppContext } from "../contexts/AppContext";
 import { createSet } from '../api/createSet';
-import { getTodaySession } from '../api/getTodaySession';
 
 
+function Form() {
+  const { token, session, exercises, setExercise, setReload } = useAppContext();
 
-function Form({ token, exercises, setExercises, exercise, setExercise }) {
-
-  // Manejo del estado de los campos
-  const [session, setSession] = useState()
   const [formData, setFormData] = useState({
     session_id: '',
     exercise_name: '',
@@ -16,27 +15,14 @@ function Form({ token, exercises, setExercises, exercise, setExercise }) {
     rir: ''
   });
 
-
-
-  useEffect(() => {
-    const session = async () => {
-      try {
-        const s = await getTodaySession(token);
-        setSession(s);
-      } catch (error) {
-        console.error('Error fetching session:', error);
-      }
-    };
-    session();
-  }, []);
-
-  // Función para actualizar el estado al escribir en los campos
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name == "exercise_name") {
       setExercise(value)
+      setReload(prevState => !prevState);
     }
+
     setFormData({
       ...formData,
       [name]: value,
@@ -47,7 +33,10 @@ function Form({ token, exercises, setExercises, exercise, setExercise }) {
   // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    let x = createSet(formData);
+    
+    createSet(formData);
+
+    setReload(prevState => !prevState);
   };
 
   return (
@@ -56,8 +45,8 @@ function Form({ token, exercises, setExercises, exercise, setExercise }) {
         <table border="1">
           <thead>
             <tr>
-              <th>Campo</th>
-              <th>Valor</th>
+              <th>User</th>
+              <th>{token}</th>
             </tr>
           </thead>
           <tbody>

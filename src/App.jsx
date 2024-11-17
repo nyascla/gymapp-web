@@ -1,50 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 
-import './App.css'
-
-import Form from './c/Form.jsx'
-import Table from './c/Table.jsx'
-import Login from './c/Login.jsx'
-
-import { fetchExercises } from './api/fetchExercises';
+import { useAppContext } from "./contexts/AppContext";
+import AuthenticatedView from "./views/AuthenticatedView";
+import UnauthenticatedView from "./views/UnauthenticatedView";
 
 
 function App() {
-  const [token, setToken] = useState();
-  const [exercises, setExercises] = useState()
-  const [exercise, setExercise] = useState()
-
-  useEffect(() => {
-    const fetchExercisesData = async () => {
-      try {
-        const e = await fetchExercises();
-        setExercises(e);
-      } catch (error) {
-        console.error('Error fetching exercises:', error);
-      }
-    };
-    fetchExercisesData();
-  }, []);
-
+  const { token } = useAppContext(); // Extraer solo el token del contexto
 
   return (
     <div>
       {token ? (
-        <>
-          <Form 
-            token={token}
-            exercises={exercises}
-            setExercises={setExercises}
-            exercise={exercise}
-            setExercise={setExercise}
-            />
-          <Table token={token} exercise={exercise}/>
-        </>
+        <AuthenticatedView />
       ) : (
-        <Login setToken={setToken}/>
+        <UnauthenticatedView />
       )}
     </div>
   );
-}
+
+};
+
 
 export default App;
