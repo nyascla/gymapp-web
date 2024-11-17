@@ -1,6 +1,0 @@
-/* App.css */
-.rr{
-  width: calc(100% - 20px); /* Deja 10px de margen a cada lado */
-  background-color: #fdd804;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}

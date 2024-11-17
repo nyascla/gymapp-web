@@ -1,21 +1,15 @@
-.app {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    padding: 20px 0; /* Espaciado opcional arriba y abajo */
-    background-color: #4c5baf;
-
-}
-
-.app button {
-    background-color: #4CAF50; /* Color de fondo verde */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    border-radius: 5px; /* Bordes redondeados */
-    padding: 10px 20px; /* Espaciado interno */
-    font-size: 16px; /* Tamaño de fuente */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    transition: background-color 0.3s, transform 0.2s; /* Efecto de transición */
-    text-align: center; /* Alinea el texto al centro */
-    display: inline-block; /* Hace que el botón se comporte como un bloque en línea */
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
   }
+  
+  .blanco {
+    background-color: #ffffff;
+  }
+  
+  .gris {
+    background-color: #f2f2f2;
+  }
+

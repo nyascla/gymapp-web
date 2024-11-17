@@ -14,8 +14,8 @@ export default defineConfig({
     port: 5173, // O el puerto que prefieras
     proxy: {
       '/api': {
-          target: 'http://127.0.0.1:8000',
-          // target: "https://gym.nyascla.pro",
+          // target: 'http://127.0.0.1:8000',
+          target: "https://gym.nyascla.pro",
           changeOrigin: true,
           secure: false,
   
@@ -24,5 +24,3 @@ export default defineConfig({
   }
 
 })
-
-          // target: 'http://127.0.0.1:8001',
