@@ -30,7 +30,7 @@ function Table() {
       return [];
     }
   
-    let isSessionChanged = true;
+    let isSessionChanged = false;
     let lastSession = '';
   
     return exerciseSets.flatMap((exercise, i) => {
