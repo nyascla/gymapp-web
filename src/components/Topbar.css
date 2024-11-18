@@ -1,0 +1,33 @@
+/* Estilos generales para la topbar */
+.topbar {
+    display: flex;
+    justify-content: center;  /* Centra los elementos horizontalmente */
+    align-items: center;      /* Centra los elementos verticalmente */
+    color: white;
+    padding: 10px 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .topbar-logo {
+    position: absolute;
+    left: 20px;  /* Coloca el logo al inicio (izquierda) */
+  }
+  
+  .topbar-links {
+    display: flex;
+    gap: 30px;
+  }
+  
+  /* Estilo de los enlaces */
+  .topbar-link {
+    color: #007bff;  /* Azul predeterminado */
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+  
+  /* Efecto hover */
+  .topbar-link:hover {
+    color: #0056b3; /* Azul más oscuro al pasar el cursor */
+  }
+  

@@ -5,7 +5,8 @@ import { getTodaySession } from '../api/getTodaySession';
 
 import Form from "../components/Form";
 import Table from "../components/Table";
-
+import Login from "../components/Login";
+import Topbar from "../components/Topbar";
 
 const AuthenticatedView = () => {
     const { token, setSession } = useAppContext();
@@ -26,6 +27,8 @@ const AuthenticatedView = () => {
 
     return (
         <>
+            <Login />
+            <Topbar/>
             <Form />
             <Table />
         </>

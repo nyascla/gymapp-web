@@ -14,14 +14,15 @@ function Table() {
   useEffect(() => {
     const asyncWrapper = async () => {
       try {
-        setExerciseSets(await fetchSets(token, exercise));
-
+        if (exercise) {
+          setExerciseSets(await fetchSets(token, exercise));
+        }
       } catch (error) {
         console.error('Error fetching sets:', error);
 
       }
     };
-
+    
     asyncWrapper();
   }, [reload]);
 

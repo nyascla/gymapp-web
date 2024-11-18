@@ -40,7 +40,6 @@ function Form() {
   };
 
   return (
-    <div className="">
       <form onSubmit={handleSubmit}>
         <table border="1">
           <thead>
@@ -113,10 +112,8 @@ function Form() {
 
           </tbody>
         </table>
-        <br />
 
       </form>
-    </div>
   );
 }
 
