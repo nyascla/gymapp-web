@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';  // Importa Link de React Router
-import './Topbar.css';  // Asegúrate de que este archivo CSS esté disponible
+import '../css/Topbar.css';  // Asegúrate de que este archivo CSS esté disponible
 
 const Topbar = () => {
   return (
