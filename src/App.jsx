@@ -2,9 +2,9 @@ import React from "react";
 import { Routes, Route, Link } from 'react-router-dom';
 
 import { useAppContext } from "./contexts/AppContext";
-import AuthenticatedView from "./views/AuthenticatedView";
-import Calendar from "./views/Calendar";
-import Weight from "./views/Weight";
+import AuthenticatedView from "./views/HomeView";
+import Calendar from "./views/CalendarView";
+import Weight from "./views/WeightView";
 
 
 function App() {
