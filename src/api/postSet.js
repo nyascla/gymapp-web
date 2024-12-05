@@ -1,7 +1,7 @@
 import { API_URL } from "./config"
 
 
-export async function createSet(requestData) {
+export async function postSet(requestData, token) {
     const requestDataExample = {
         session_id: "4c0597b2-bc89-4a60-bbb8-dfcb20005f0c",
         exercise_name: "Dumbbells Press",
@@ -14,7 +14,8 @@ export async function createSet(requestData) {
         const response = await fetch(`${API_URL}/set`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(requestData)
         });

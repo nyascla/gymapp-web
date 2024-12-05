@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useAppContext } from "../contexts/AppContext";
-import { fetchSets } from '../api/fetchSets';
+import { fetchSets } from '../api/getSetsFromExercise';
 
 import '../App.css';
 

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-import { fetchExercises } from "../api/fetchExercises"
+import { fetchExercises } from "../api/getExercises"
 
 
 const AppContext = createContext();
@@ -25,6 +25,12 @@ export const AppProvider = ({ children }) => {
 
         asyncWrapper();
 
+    }, []);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('access_token');
+        console.log('storedToken:', storedToken);
+        setToken(storedToken)
     }, []);
 
     return (

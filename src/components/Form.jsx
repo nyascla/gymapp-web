@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import { useAppContext } from "../contexts/AppContext";
-import { createSet } from '../api/createSet';
+import { postSet } from '../api/postSet';
 
 
 function Form() {
@@ -34,7 +34,7 @@ function Form() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    createSet(formData);
+    postSet(formData);
 
     setReload(prevState => !prevState);
   };

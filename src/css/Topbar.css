@@ -1,11 +1,12 @@
 /* Estilos generales para la topbar */
 .topbar {
     display: flex;
-    justify-content: center;  /* Centra los elementos horizontalmente */
+    justify-content: space-between;  /* Centra los elementos horizontalmente */
     align-items: center;      /* Centra los elementos verticalmente */
-    color: white;
+    color: black;
     padding: 10px 20px;
     font-family: Arial, sans-serif;
+
   }
   
   .topbar-logo {
@@ -30,4 +31,9 @@
   .topbar-link:hover {
     color: #0056b3; /* Azul más oscuro al pasar el cursor */
   }
-  
+
+  .topbar-info {
+    /* Mantiene el topbar-info pegado a la derecha */
+    color: #333;  /* Color de texto (puedes ajustarlo) */
+    font-size: 16px;  /* Tamaño de fuente */
+  }
