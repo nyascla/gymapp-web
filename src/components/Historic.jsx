@@ -1,31 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-// Datos simulados para pruebas
-const mockData = [
-  {
-    date: "2024-12-02",
-    exercise_name: "Shoulder-Pres",
-    sets: [
-      { id: 5, repetitions: 22, weight: 22, rir: 22 },
-      { id: 6, repetitions: 22, weight: 22, rir: 22 },
-      { id: 7, repetitions: 22, weight: 22, rir: 22 },
-      { id: 8, repetitions: 22, weight: 22, rir: 22 },
-    ],
-  },
-  {
-    date: "2024-12-04",
-    exercise_name: "Shoulder-Pres",
-    sets: [
-      { id: 11, repetitions: 12, weight: 12, rir: 12 },
-    ],
-  },
-];
+import { getAllSets } from '../api/getAllSets';
+import { useAppContext } from "../contexts/AppContext";
 
-const Historic = ({ exercises = [], data = mockData }) => {
-  const [selectedExercise, setSelectedExercise] = useState(exercises[0] || "");
 
-  // Filtrar los datos según el ejercicio seleccionado
-  const filteredData = data.filter((entry) => entry.exercise_name === selectedExercise);
+const Historic = ({ exercises = [] }) => {
+  const [data, setData] = useState([]);
+
+  const { token, selectedExercise, setSelectedExercise } = useAppContext();
+
+  useEffect(() => {
+    const asyncWrapper = async () => {
+      try {
+        const e = await getAllSets(token, selectedExercise);
+        setData(e);
+      } catch (error) {
+        console.error('Error fetching exercises:', error);
+      }
+    };
+    console.log("hre")
+    if (selectedExercise) {
+      asyncWrapper();
+    }
+
+  }, [selectedExercise]);
+
 
   return (
     <div style={{ margin: "20px", fontFamily: "Arial, sans-serif" }}>
@@ -54,8 +53,8 @@ const Historic = ({ exercises = [], data = mockData }) => {
       </select>
 
       {/* Mostrar los sets agrupados por fecha */}
-      {filteredData.length > 0 ? (
-        filteredData.map((entry) => (
+      {data ? (
+        data.map((entry) => (
           <div key={entry.date} style={{ marginTop: "20px", borderBottom: "1px solid #ccc", paddingBottom: "10px" }}>
             <h3>{entry.date}</h3>
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -88,3 +87,25 @@ const Historic = ({ exercises = [], data = mockData }) => {
 };
 
 export default Historic;
+
+
+// Datos simulados para pruebas
+// const mockData = [
+//   {
+//     date: "2024-12-02",
+//     exercise_name: "Shoulder-Pres",
+//     sets: [
+//       { id: 5, repetitions: 22, weight: 22, rir: 22 },
+//       { id: 6, repetitions: 22, weight: 22, rir: 22 },
+//       { id: 7, repetitions: 22, weight: 22, rir: 22 },
+//       { id: 8, repetitions: 22, weight: 22, rir: 22 },
+//     ],
+//   },
+//   {
+//     date: "2024-12-04",
+//     exercise_name: "Shoulder-Pres",
+//     sets: [
+//       { id: 11, repetitions: 12, weight: 12, rir: 12 },
+//     ],
+//   },
+// ];

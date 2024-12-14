@@ -1,9 +1,9 @@
 import { API_URL } from "./config"
 
 
-export async function fetchSets(token, exercise) {
+export async function getAllSets(token, exercise) {
     try {
-        const response = await fetch(`${API_URL}/sets/${encodeURIComponent(exercise)}`, {
+        const response = await fetch(`${API_URL}/get_all_sets/${encodeURIComponent(exercise)}/`, {
             method: 'GET', // El método por defecto para fetch es GET.
             headers: {
                 'Authorization': `Bearer ${token}`, // Incluye el token de autorización.

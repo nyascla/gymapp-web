@@ -11,6 +11,7 @@ export const AppProvider = ({ children }) => {
     const [exercises, setExercises] = useState([]);
     const [exercise, setExercise] = useState(null);
     const [reload, setReload] = useState(false);
+    const [selectedExercise, setSelectedExercise] = useState(exercises[0] || "");
 
 
     useEffect(() => {
@@ -34,7 +35,7 @@ export const AppProvider = ({ children }) => {
     }, []);
 
     return (
-        <AppContext.Provider value={{ token, setToken, session, setSession, exercises, exercise, setExercise, reload, setReload }}>
+        <AppContext.Provider value={{ token, setToken, session, setSession, exercises, exercise, setExercise, reload, setReload, selectedExercise, setSelectedExercise }}>
             {children}
         </AppContext.Provider>
     );

@@ -42,7 +42,13 @@ const ExerciseTable = ({ data, token }) => {
     };
     console.log("request", JSON.stringify(request));
 
-    postSet(request, token)
+    try {
+      postSet(request, token)
+      alert("OK")
+    } catch (error) {
+      alert(error)
+      console.error('Error postSet:', error);
+    }
   };
 
   return (
